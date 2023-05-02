@@ -13,27 +13,17 @@
 % style options are 'casual' (default), 'classic', 'banking', 'oldstyle' and 'fancy'
 % color options 'black', 'blue' (default), 'burgundy', 'green', 'grey', 'orange', 'purple' and 'red'
 \moderncvstyle{banking}                            
-\moderncvcolor{purple}
+\moderncvcolor{black}
 
  $if(linestretch)$
  \usepackage{setspace}
  \setstretch{$linestretch$}
  $endif$
- $if(mainfont)$
- \setmainfont[$for(mainfontoptions)$$mainfontoptions$$sep$,$endfor$]{$mainfont$}
- $else$
-  \setmainfont{Liberation Serif}[]
- $endif$
- $if(sansfont)$
-     \setsansfont[$for(sansfontoptions)$$sansfontoptions$$sep$,$endfor$]{$sansfont$}
- $endif$
- $if(monofont)$
-     \setmonofont[Mapping=tex-ansi$if(monofontoptions)$,$for(monofontoptions)$$monofontoptions$$sep$ ,$endfor$$endif$]{$monofont$}
- $endif$
-$if(mathfont)$
-     \setmathfont(Digits,Latin,Greek)[$for(mathfontoptions)$$mathfontoptions$$sep$,$endfor$]{$mathfont$}
- $endif$
- % use microtype if available
+
+\usepackage[scaled]{helvet}
+\usepackage[T1]{fontenc}
+\renewcommand\familydefault{\sfdefault}
+
  \IfFileExists{microtype.sty}{%
  \usepackage{microtype}
  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
@@ -64,6 +54,9 @@ $if(mathfont)$
 
 %% Redefine cventry and cvitem to allow multiple paragraphs.
 \usepackage{enumitem}
+\usepackage[inline]{enumitem}
+\newlist{commalist}{description*}{4}
+\setlist[commalist]{itemjoin={{,}},itemjoin*={{, and}},afterlabel=\unskip{{~}}}
 
 \renewcommand{\cventry}[7][.25em]{%
   \cvitem[#1]{#2}{%
@@ -88,23 +81,23 @@ $if(mathfont)$
 %% ========================================================================
 \name{$firstname$}{$lastname$}
 
-$if(title)$
-\title{$title$}
-$endif$
+% $if(title)$
+% \title{$title$}
+% $endif$
 
 % optional, remove / comment the line if not wanted; 
 % the "postcode city" and "country" arguments can be omitted or provided empty
 $if(address)$
-\address{$if(address.street)$$address.street$$endif$}{$address.city$}{$address.country$}
+\address{$address.city$}{$address.country$}
 $endif$
 
 % these are optional and can be commented out
 \phone[mobile]{$phone$} 
-\email{$email$}                   
-\homepage{$homepage$} 
+\email{$email$}
+% \homepage{$homepage$} 
 \social[linkedin]{$linkedin$}
-\social[twitter]{$twitter$} 
-\social[github]{$github$}   
+% \social[twitter]{$twitter$} 
+\social[github]{$github$}
 %\extrainfo{additional information}
 
 
@@ -128,16 +121,18 @@ $endif$
  \cventry{$experience.dates$}{$experience.title$}{$experience.employer$}{$experience.city$}{}{$for(experience.description)$$experience.description$$sep$ \medskip{}\newline{}$endfor$}
  $endfor$
 
- \section{Certifications}
- $for(certifications)$
-\cvitem{$certifications.cert$}{$certifications.description$}
+\section{Education}
+\cventry{$education.dates$}{$education.major$}{$education.institution$}{$education.city$}{$education.description$} 
+
+\section{Skills}
+\begin{commalist}
+$for(skills)$
+% \cvskillentry*{Language:}{3}{Python}{2}{I'm so experienced in Python and have realised a million projects. At least.}
+\item $skills$
+
 $endfor$
-
-\section{Interests}
-$interests$
-
+\end{commalist}
 \end{document}
-
 
 
 
