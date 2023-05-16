@@ -9,10 +9,11 @@
 %% =========================================================================
 
 \documentclass[11pt,letterpaper]{moderncv}
+
 % moderncv themes
 % style options are 'casual' (default), 'classic', 'banking', 'oldstyle' and 'fancy'
 % color options 'black', 'blue' (default), 'burgundy', 'green', 'grey', 'orange', 'purple' and 'red'
-\moderncvstyle{banking}                            
+\moderncvstyle{banking}
 \moderncvcolor{black}
 
  $if(linestretch)$
@@ -20,9 +21,9 @@
  \setstretch{$linestretch$}
  $endif$
 
-\usepackage[scaled]{helvet}
-\usepackage[T1]{fontenc}
-\renewcommand\familydefault{\sfdefault}
+
+\usepackage{fontspec}
+\setmainfont{Arial}
 
  \IfFileExists{microtype.sty}{%
  \usepackage{microtype}
@@ -54,9 +55,9 @@
 
 %% Redefine cventry and cvitem to allow multiple paragraphs.
 \usepackage{enumitem}
-\usepackage[inline]{enumitem}
+% \usepackage[inline]{enumitem}
 \newlist{commalist}{description*}{4}
-\setlist[commalist]{itemjoin={{,}},itemjoin*={{, and}},afterlabel=\unskip{{~}}}
+\setlist[commalist]{before=\kern-0.3em,itemjoin={{ •}},afterlabel=\unskip{{~}}, mode=unboxed}
 
 \renewcommand{\cventry}[7][.25em]{%
   \cvitem[#1]{#2}{%
@@ -73,6 +74,23 @@
     \end{mycvlist}
     \addvspace{#1}}
 
+\newcommand{\addtechskills}{%
+\section{Technical Skills}
+\begin{commalist}
+$for(tech_skills)$
+\item $tech_skills$
+$endfor$
+\end{commalist}}
+
+\newcommand{\addpeopleskills}{%
+\section{People Skills}
+\begin{commalist}
+$for(people_skills)$
+\item $people_skills$
+$endfor$
+\end{commalist}}
+
+% \usepackage{enumitem}
 \newlist{mycvlist}{description}{1}
 \setlist[mycvlist]{labelwidth=\hintscolumnwidth,labelsep=\separatorcolumnwidth,leftmargin=!,align=right,font=\normalfont}
 
@@ -81,9 +99,9 @@
 %% ========================================================================
 \name{$firstname$}{$lastname$}
 
-% $if(title)$
-% \title{$title$}
-% $endif$
+$if(title)$
+\title{$title$}
+$endif$
 
 % optional, remove / comment the line if not wanted; 
 % the "postcode city" and "country" arguments can be omitted or provided empty
@@ -100,6 +118,11 @@ $endif$
 \social[github]{$github$}
 %\extrainfo{additional information}
 
+\newcommand{\deemph}[1]{{\color{black!10}#1}}
+
+\fancyfoot{} % clear all footer fields
+\fancyfoot[LE,RO]{\thepage}           % page number in "outer" position of footer line
+\fancyfoot[RE,LO]{\deemph{$version$}} % other info in "inner" position of footer line
 
 %%----------------------------------------------------------------------------------
 %% Actual document content
@@ -118,20 +141,17 @@ $endif$
 
 \section{Experience}
  $for(experience)$
- \cventry{$experience.dates$}{$experience.title$}{$experience.employer$}{$experience.city$}{}{$for(experience.description)$$experience.description$$sep$ \medskip{}\newline{}$endfor$}
+ \cventry{$experience.dates$}{$experience.title$}{$experience.employer$}{$experience.city$}{}{$for(experience.description)$- $experience.description$$sep$\newline{}$endfor$}
  $endfor$
 
 \section{Education}
 \cventry{$education.dates$}{$education.major$}{$education.institution$}{$education.city$}{$education.description$} 
 
-\section{Skills}
-\begin{commalist}
-$for(skills)$
-% \cvskillentry*{Language:}{3}{Python}{2}{I'm so experienced in Python and have realised a million projects. At least.}
-\item $skills$
+% \pagebreak
+\ifthenelse{\equal{$keyword$}{manager}}
+{\addpeopleskills\addtechskills}
+{\addtechskills\addpeopleskills}%
 
-$endfor$
-\end{commalist}
 \end{document}
 
 
