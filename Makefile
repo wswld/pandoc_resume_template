@@ -12,4 +12,7 @@ resume.txt: resume.yml resume.pandoc.plain ; pandoc -t plain --template resume.p
 md: resume.md
 resume.md: resume.yml resume.pandoc.markdown ; pandoc -t markdown  --template resume.pandoc.markdown -o resume.md resume.yml
 
+doc: resume.docx
+resume.docx: resume.yml resume.pandoc.markdown ; pandoc -t markdown --template resume.pandoc.markdown resume.yml | pandoc -f markdown -t docx -o resume.docx
+
 clean: ; rm -f resume.pdf resume.html resume.txt resume.md

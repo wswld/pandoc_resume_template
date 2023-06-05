@@ -10,13 +10,6 @@ $firstname$ $lastname$
 
 > (email: $email$ - phone: $phone$)
 
-
-SUMMARY
------------
-
-$summary$
-
-
 EXPERIENCE
 -----------
 
@@ -25,28 +18,25 @@ $for(experience)$
 **$experience.title$**
 $experience.employer$$if(experience.city)$ ($experience.city$)$endif$ *$experience.dates$*
 
-$for(experience.description)$$experience.description$$sep$
+$for(experience.description)$- $experience.description$$sep$
 
 $endfor$
 
 $endfor$
 
-CERTIFICATIONS
------------
+SKILLS
+------
+$for(tech_skills)$$tech_skills$ • $endfor$$for(people_skills)$$people_skills$ • $endfor$
 
-$for(certifications)$
-- $certifications.cert$: $certifications.description$
-$endfor$
+EDUCATION
+---------
+**$education.institution$** $education.major$
 
-
-INTERESTS
------------
-
-$if(interests)$$interests$$endif$
-
+*$education.dates$* $education.city$
+$education.description$
 
 CONTACT INFORMATION
------------
+-------------------
 
 - phone: $phone$
 - email: $email$
@@ -54,17 +44,3 @@ $if(homepage)$- website: http://$homepage$$endif$
 $if(linkedin)$- LinkedIn: https://www.linkedin.com/in/$linkedin$$endif$
 $if(github)$- GitHub: https://github.com/$github$$endif$
 $if(twitter)$- Twitter: $twitter$$endif$
-
-
-$for(include-after)$
-$include-after$
-$endfor$
-
-
-
-
-
-
-
-
-
