@@ -8,7 +8,7 @@
 %% - http://tex.stackexchange.com/questions/168537/how-to-insert-multiple-paragraphs-in-a-cventry
 %% =========================================================================
 
-\documentclass[11pt,letterpaper]{moderncv}
+\documentclass[13pt,letterpaper]{moderncv}
 
 % moderncv themes
 % style options are 'casual' (default), 'classic', 'banking', 'oldstyle' and 'fancy'
@@ -140,12 +140,14 @@ $summary$
 $endif$
 
 \section{Experience}
- $for(experience)$
- \cventry{$experience.dates$}{$experience.title$}{$experience.employer$}{$experience.city$}{}{$for(experience.description)$- $experience.description$$sep$\newline{}$endfor$}
- $endfor$
+$for(experience)$
+\cventry{$experience.dates$}{$experience.title$}{$experience.employer$}{$experience.city$}{}{$for(experience.description)$- $experience.description$$sep$\newline{}$endfor$}
+$endfor$
 
+\begin{samepage}
 \section{Education}
-\cventry{$education.dates$}{$education.major$}{$education.institution$}{$education.city$}{$education.description$} 
+\cventry{$education.dates$}{$education.major$}{$education.institution$}{$education.city$}{$education.description$}\par
+\end{samepage}
 
 % \pagebreak
 \ifthenelse{\equal{$keyword$}{manager}}
