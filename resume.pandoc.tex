@@ -136,7 +136,9 @@ $endfor$
 
 $if(summary)$
 \section{Summary}
-$summary$
+\begin{itemize}[itemsep=0.5mm]
+$for(summary)$\item[-] $summary${}$endfor$
+\end{itemize}
 $endif$
 
 \section{Experience}
